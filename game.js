@@ -17,7 +17,7 @@ function setup() {
     for(let i = 0; i < level/3; i ++){
         f.push(new fire());
     }
-
+    alert("Game is a simple zombie game.\n The aim of the game is to reach the blue point \n Red circles are fire, greens are zombies don't forget that both you and zombies can hurt by fire ")
 
     frameRate(60);
 }
@@ -38,10 +38,10 @@ function draw() {
         w[i].draw();
         w[i].cross();
     }
-    for(let i = 0; i < f.length; i++)
+    for(let i = 0; i < f.length; i++){
     f[i].draw();
-    console.log(c.hp);
-    f[0].die();
+    f[i].die();
+    }
     levelUp();
     start();
     gameover();
