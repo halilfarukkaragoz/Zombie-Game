@@ -5,13 +5,13 @@ class character {
         this.v = 3;
         this.dirx = 0;
         this.diry = 0;
-        this.r = 50;
+        this.r = 75;
         this.hp = 100;
     }
 
     draw() {
-        fill(255);
-        circle(this.x, this.y, this.r);
+        if (this.dirx == 0 && this.diry == 0)
+            image(adventurer, this.x, this.y, this.r , this.r );
 
     }
 
@@ -19,12 +19,17 @@ class character {
 
         this.x += this.dirx;
         this.y += this.diry;
-        this.x = constrain(this.x,0,1800);
-        this.y =constrain(this.y,0,900)
+        this.x = constrain(this.x, 0, windowWidth-this.r);
+        this.y = constrain(this.y, -30, windowHeight - 50);
+        if (this.dirx != 0 || this.diry != 0) {
+            for(let i = 0; i <8; i++){
+                image(adventurerWalk[i],this.x,this.y,this.r,this.r);
+            }
     }
-
-
+    }
 }
+
+
 
 function keyPressed() {
     switch (keyCode) {
@@ -51,3 +56,6 @@ function keyPressed() {
     }
 }
 
+const sleep = (milliseconds) => {
+    return new Promise(resolve => setTimeout(resolve, milliseconds))
+}
