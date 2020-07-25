@@ -31,6 +31,7 @@ class character {
 
 
 
+
 function keyPressed() {
     switch (keyCode) {
         case UP_ARROW:
@@ -53,9 +54,6 @@ function keyPressed() {
             c.dirx = 0;
             c.diry = 0;
             break;
-    }
+    
 }
-
-const sleep = (milliseconds) => {
-    return new Promise(resolve => setTimeout(resolve, milliseconds))
 }

@@ -39,9 +39,10 @@ function setup() {
     for (let i = 0; i < level / 3; i++) {
         f.push(new fire());
     }
-    alert("Game is a simple zombie game.\n The aim of the game is to reach the door \n Run from zombies and don't forget that both you and zombies can hurt by fire ")
+    alert("Game is a simple zombie game.\n The aim of the game is to reach the door \n Run from zombies and don't forget that both you and zombies can hurt by fire \nIf you played with your phone you can use virtual keys left bottom on the screen for move")
 
     frameRate(60);
+
 }
 
 
@@ -50,7 +51,6 @@ function draw() {
     background(backgroundimg)
     c.draw();
     c.walk();
-    keyPressed();
     for (let i = 0; i < z.length; i++) {
         z[i].follow();
         z[i].draw();
@@ -68,17 +68,18 @@ function draw() {
     start();
     gameover();
     scoreAndHp()
+    drawPanel();
 }
 
-
-
+let i = 0;
+setTimeout(function () { i++; }, 3000);
 function levelUp() {
-    let x = 1600;
+    let x = windowWidth - 200;
     let y = 100;
     let r = 50;
-    image(door,x,y,2*r,2*r);
-    
-    if (sqrt((x - c.x-c.r/2) * (x - c.x-c.r/2) + (y - c.y-c.r/2) * (y - c.y-c.r/2)) < r + c.r/2) {
+    image(door, x, y, 2 * r, 2 * r);
+
+    if (sqrt((x - c.x - c.r / 2) * (x - c.x - c.r / 2) + (y - c.y - c.r / 2) * (y - c.y - c.r / 2)) < r + c.r / 2) {
         level++;
         c = new character();
         z = [];
@@ -101,7 +102,7 @@ function levelUp() {
 
 function start() {
     for (let i = 0; i < w.length; i++)
-        if (c.x + c.r - 15 > w[i].x && c.x  + 30 < w[i].x + w[i].width && c.y + c.r - 10 > w[i].y && c.y  + 30 < w[i].y + w[i].height) {
+        if (c.x + c.r - 15 > w[i].x && c.x + 30 < w[i].x + w[i].width && c.y + c.r - 10 > w[i].y && c.y + 30 < w[i].y + w[i].height) {
             c = new character();
         }
 
@@ -124,7 +125,37 @@ function scoreAndHp() {
     text("HP : " + c.hp, 100, 100);
     text("Level :" + level, 700, 100);
     fill("white");
-    rect(330,60,200,40);
+    rect(330, 60, 200, 40);
     fill("red");
-    rect(330,60,c.hp*2,40)
+    rect(330, 60, c.hp * 2, 40)
+}
+function drawPanel() {
+    fill("white");
+    rect(windowWidth - 200, windowHeight - 200, 50, 50);
+    rect(windowWidth - 255, windowHeight - 200, 50, 50);
+    rect(windowWidth - 310, windowHeight - 200, 50, 50);
+    rect(windowWidth - 255, windowHeight - 255, 50, 50);
+}
+
+function mouseClicked() {
+    if (mouseX >windowWidth - 200 && mouseX < windowWidth -150 && mouseY > windowHeight -200 && mouseY < windowHeight -150 ) {
+        c.dirx = 5;
+        c.diry = 0;
+    }
+    else if(mouseX >windowWidth - 255 && mouseX < windowWidth -205 && mouseY > windowHeight -200 && mouseY < windowHeight -150 ) {
+        c.dirx = 0
+        c.diry = 5;
+    }
+
+    else if(mouseX >windowWidth - 310 && mouseX < windowWidth -260 && mouseY > windowHeight -200 && mouseY < windowHeight -150 ) {
+        c.dirx = -5;
+        c.diry = 0;
+
+    }
+
+    else if(mouseX >windowWidth - 255 && mouseX < windowWidth -205 && mouseY > windowHeight -255 && mouseY < windowHeight -205 ) {
+        c.dirx = 0;
+        c.diry = -5;
+        
+    }
 }
